@@ -307,6 +307,12 @@ fun squareSequenceDigit(n: Int): Int {
         if (chis in 1000..9999) {
             count += 4
         }
+        if (chis in 10000..99999) {
+            count += 5
+        }
+        if (chis in 100000..999999) {
+            count += 6
+        }
         if (n == count) {
             return chis % 10
             break
@@ -321,6 +327,14 @@ fun squareSequenceDigit(n: Int): Int {
         }
         if (n == count - 3) {
             return chis % 10000 / 1000
+            break
+        }
+        if (n == count - 4) {
+            return chis % 100000 / 10000
+            break
+        }
+        if (n == count - 5) {
+            return chis % 1000000 / 100000
             break
         }
     }
