@@ -149,8 +149,10 @@ fun collatzSteps(x: Int): Int {
             count++
             h = h / 2
         }
-        count++
-        h = 3 * h + 1
+        else {
+            count++
+            h = 3 * h + 1
+        }
     }
     return count
 }
