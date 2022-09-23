@@ -332,12 +332,11 @@ fun fibSequenceDigit(n: Int): Int {
     if (n == 1 || n == 2) return 1
     for (i in 1..1000000) {
         num = fib(i - 1) + fib(i - 2)
-        p = 0
         p = digitNumber(num)
         count += p
-        k = num
         if (n in count - p..count) break
     }
+    k = num
     if (k / 10 > 0) {
         for (i in 1..count - n) {
             k = k / 10
