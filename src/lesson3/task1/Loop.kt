@@ -293,52 +293,27 @@ fun cos(x: Double, eps: Double): Double = TODO()
 fun squareSequenceDigit(n: Int): Int {
     var chis = 0
     var count = 0
+    var p = 0
+    var k = chis
+    if (n == 1) return 1
     for (i in 1..100000) {
         chis = i * i
-        if (chis in 1..10) {
-            count++
+        k = chis
+        p = 0
+        while (k > 0) {
+            k = k / 10
+            p++
         }
-        if (chis in 10..99) {
-            count += 2
-        }
-        if (chis in 100..999) {
-            count += 3
-        }
-        if (chis in 1000..9999) {
-            count += 4
-        }
-        if (chis in 10000..99999) {
-            count += 5
-        }
-        if (chis in 100000..999999) {
-            count += 6
-        }
-        if (n == count) {
-            return chis % 10
-            break
-        }
-        if (n == count - 1) {
-            return chis % 100 / 10
-            break
-        }
-        if (n == count - 2) {
-            return chis % 1000 / 100
-            break
-        }
-        if (n == count - 3) {
-            return chis % 10000 / 1000
-            break
-        }
-        if (n == count - 4) {
-            return chis % 100000 / 10000
-            break
-        }
-        if (n == count - 5) {
-            return chis % 1000000 / 100000
-            break
+        count += p
+        k = i * i
+        if (n in count - p..count) break
+    }
+    if (k / 10 > 0) {
+        for (i in 1..count - n) {
+            k = k / 10
         }
     }
-    return 0
+    return k % 10
 }
 
 /**
