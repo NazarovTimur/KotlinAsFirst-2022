@@ -93,11 +93,11 @@ fun timeForHalfWay(
     t3: Double, v3: Double
 ): Double {
     val s = ((t1 * v1 + t2 * v2 + t3 * v3) / 2)
-    when {
-        s <= (t1 * v1) -> return s / v1
-        s <= (t1 * v1 + t2 * v2) -> return t1 + (s - t1 * v1) / v2
+    return when {
+        s <= (t1 * v1) -> s / v1
+        s <= (t1 * v1 + t2 * v2) -> t1 + (s - t1 * v1) / v2
+        else -> t1 + t2 + ((s - (t1 * v1) - (t2 * v2)) / v3)
     }
-    return t1 + t2 + (s - t1 * v1 - t2 * v2) / v3
 }
 
 /**
@@ -149,16 +149,16 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    if ((a < (b + c)) and (b < (a + c)) and (c < (a + b))) {
-        if ((max(a, b) <= c) and (sqr(c) == (sqr(a) + sqr(b)))) return 1
-        if ((max(a, c) <= b) and (sqr(b) == (sqr(a) + sqr(c)))) return 1
-        if ((max(b, c) <= a) and (sqr(a) == (sqr(b) + sqr(c)))) return 1
-        if ((max(a, b) <= c) and (sqr(c) < (sqr(a) + sqr(b)))) return 0
-        if ((max(a, c) <= b) and (sqr(b) < (sqr(a) + sqr(c)))) return 0
-        if ((max(c, b) <= a) and (sqr(a) < (sqr(c) + sqr(b)))) return 0
-        if ((max(a, b) <= c) and (sqr(c) > (sqr(a) + sqr(b)))) return 2
-        if ((max(a, c) <= b) and (sqr(b) > (sqr(a) + sqr(c)))) return 2
-        if ((max(c, b) <= a) and (sqr(a) > (sqr(c) + sqr(b)))) return 2
+    if ((a < (b + c)) && (b < (a + c)) && (c < (a + b))) {
+        if ((max(a, b) <= c) && (sqr(c) == (sqr(a) + sqr(b)))) return 1
+        if ((max(a, c) <= b) && (sqr(b) == (sqr(a) + sqr(c)))) return 1
+        if ((max(b, c) <= a) && (sqr(a) == (sqr(b) + sqr(c)))) return 1
+        if ((max(a, b) <= c) && (sqr(c) < (sqr(a) + sqr(b)))) return 0
+        if ((max(a, c) <= b) && (sqr(b) < (sqr(a) + sqr(c)))) return 0
+        if ((max(c, b) <= a) && (sqr(a) < (sqr(c) + sqr(b)))) return 0
+        if ((max(a, b) <= c) && (sqr(c) > (sqr(a) + sqr(b)))) return 2
+        if ((max(a, c) <= b) && (sqr(b) > (sqr(a) + sqr(c)))) return 2
+        if ((max(c, b) <= a) && (sqr(a) > (sqr(c) + sqr(b)))) return 2
     }
     return -1
 }
