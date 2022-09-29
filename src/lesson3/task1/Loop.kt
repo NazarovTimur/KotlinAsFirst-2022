@@ -79,9 +79,9 @@ fun digitNumber(n: Int): Int {
     if (number == 0) {
         return 1
     }
-    while (number > 0) {
+    while (number != 0) {
         count += 1
-        number = number / 10
+        number /= 10
     }
     return count
 }
@@ -92,7 +92,17 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = if (n <= 2) 1 else fib(n - 1) + fib(n - 2)
+fun fib(n: Int): Int {
+    var n0 = 1
+    var n1 = 1
+    var n2 = 1
+    for (i in 3..n) {
+        n2 = n0 + n1
+        n0 = n1
+        n1 = n2
+    }
+    return n2
+}
 
 /**
  * Простая (2 балла)
@@ -101,7 +111,7 @@ fun fib(n: Int): Int = if (n <= 2) 1 else fib(n - 1) + fib(n - 2)
  */
 fun minDivisor(n: Int): Int {
     var minDel = 1
-    for (i in 2..n) {
+    for (i in 2..n / 2) {
         if (n % i == 0) {
             minDel = i
             break
@@ -145,11 +155,10 @@ fun collatzSteps(x: Int): Int {
     var h = x
     var count = 0
     while (h != 1) {
+        count++
         if (h % 2 == 0) {
-            count++
             h = h / 2
         } else {
-            count++
             h = 3 * h + 1
         }
     }
@@ -184,7 +193,6 @@ fun isCoPrime(m: Int, n: Int): Boolean {
     for (i in 2..m * n) {
         if (m % i == 0 && n % i == 0) {
             return false
-            break
         }
     }
     return true
@@ -245,13 +253,9 @@ fun isPalindrome(n: Int): Boolean {
  */
 fun hasDifferentDigits(n: Int): Boolean {
     var number1 = n
-    if (n == 0) {
-        return false
-    }
     while (number1 > 10) {
         if (number1 % 10 != (number1 % 100) / 10) {
             return true
-            break
         }
         number1 = number1 / 10
     }
@@ -295,14 +299,11 @@ fun squareSequenceDigit(n: Int): Int {
     var p = 0
     var k = chis
     if (n == 1) return 1
-    for (i in 1..100000) {
+    for (i in 1..100000000) {
         chis = i * i
         k = chis
         p = 0
-        while (k > 0) {
-            k = k / 10
-            p++
-        }
+        p = digitNumber(k)
         count += p
         k = i * i
         if (n in count - p..count) break
@@ -325,19 +326,23 @@ fun squareSequenceDigit(n: Int): Int {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int {
-    var count = 0
-    var num = 0
+    var count = 2
+    var num0 = 1
+    var num1 = 1
+    var num2 = 1
     var p = 0
     var k = 0
     if (n == 1) return 1
     if (n == 2) return 1
-    for (i in 1..1000000) {
-        num = fib(i - 1) + fib(i - 2)
-        p = digitNumber(num)
+    for (i in 3..1000000) {
+        num2 = num0 + num1
+        p = digitNumber(num2)
         count += p
+        num0 = num1
+        num1 = num2
         if (n in count - p..count) break
     }
-    k = num
+    k = num2
     for (i in 1..count - n) {
         k = k / 10
     }
