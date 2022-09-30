@@ -228,21 +228,7 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean {
-    var number1 = n
-    var number2 = 0
-    var rem = 0
-    while (number1 > 0) {
-        rem = number1 % 10
-        number1 = number1 / 10
-        number2 = number2 * 10
-        number2 += rem
-    }
-    if (n == number2) {
-        return true
-    }
-    return false
-}
+fun isPalindrome(n: Int): Boolean = (n == revert(n))
 
 /**
  * Средняя (3 балла)
