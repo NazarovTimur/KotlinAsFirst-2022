@@ -324,15 +324,3 @@ fun fibSequenceDigit(n: Int): Int {
     }
     return k % 10
 }
-
-
-fun main() {
-//    for (i in 1..10000000){
-//        println(i)
-//    }
-    var i = 1
-    while (i <= 10000000) {
-        println(i)
-        i += 1
-    }
-}
