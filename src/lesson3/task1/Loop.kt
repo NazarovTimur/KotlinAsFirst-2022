@@ -188,16 +188,7 @@ fun lcm(m: Int, n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {
-    var a = m
-    var b = n
-    while (a != 0 && b != 0) {
-        if (a > b) a = a % b
-        else b = b % a
-    }
-    if (a+b == 1) return true
-    else return false
-}
+fun isCoPrime(m: Int, n: Int): Boolean = if (1 < lcm(m, n) && lcm(m, n) < m * n) false else true
 
 /**
  * Средняя (3 балла)
@@ -228,7 +219,7 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = (n == revert(n))
+fun isPalindrome(n: Int): Boolean = n == revert(n)
 
 /**
  * Средняя (3 балла)
@@ -282,25 +273,23 @@ fun cos(x: Double, eps: Double): Double = TODO()
  */
 fun squareSequenceDigit(n: Int): Int {
     var chis = 0
+    var i = 1
     var count = 0
     var p = 0
-    var k = chis
     if (n == 1) return 1
-    for (i in 1..100000000) {
+    while (true) {
         chis = i * i
-        k = chis
-        p = 0
-        p = digitNumber(k)
+        p = digitNumber(chis)
         count += p
-        k = i * i
+        i += 1
         if (n in count - p..count) break
     }
-    if (k / 10 > 0) {
+    if (chis / 10 > 0) {
         for (i in 1..count - n) {
-            k = k / 10
+            chis = chis / 10
         }
     }
-    return k % 10
+    return chis % 10
 }
 
 /**
@@ -334,4 +323,16 @@ fun fibSequenceDigit(n: Int): Int {
         k = k / 10
     }
     return k % 10
+}
+
+
+fun main() {
+//    for (i in 1..10000000){
+//        println(i)
+//    }
+    var i = 1
+    while (i <= 10000000) {
+        println(i)
+        i += 1
+    }
 }

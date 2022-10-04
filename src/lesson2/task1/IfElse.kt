@@ -113,17 +113,15 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int {
-    return when {
-        kingY == rookY1 && kingY == rookY2 -> 3
-        kingY == rookY1 && kingX == rookX2 -> 3
-        kingY == rookY2 && kingX == rookX1 -> 3
-        kingX == rookX1 && kingX != rookX2 -> 1
-        kingX != rookX1 && kingX == rookX2 -> 2
-        kingY == rookY1 && kingY != rookY2 -> 1
-        kingY != rookY1 && kingY == rookY2 -> 2
-        else -> 0
-    }
+): Int = when {
+    kingY == rookY1 && kingY == rookY2 -> 3
+    kingY == rookY1 && kingX == rookX2 -> 3
+    kingY == rookY2 && kingX == rookX1 -> 3
+    kingX == rookX1 && kingX != rookX2 -> 1
+    kingX != rookX1 && kingX == rookX2 -> 2
+    kingY == rookY1 && kingY != rookY2 -> 1
+    kingY != rookY1 && kingY == rookY2 -> 2
+    else -> 0
 }
 
 /**
@@ -152,15 +150,18 @@ fun rookOrBishopThreatens(
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
     if ((a < (b + c)) && (b < (a + c)) && (c < (a + b))) {
-        if ((max(a, b) <= c) && (sqr(c) == (sqr(a) + sqr(b)))) return 1
-        if ((max(a, c) <= b) && (sqr(b) == (sqr(a) + sqr(c)))) return 1
-        if ((max(b, c) <= a) && (sqr(a) == (sqr(b) + sqr(c)))) return 1
-        if ((max(a, b) <= c) && (sqr(c) < (sqr(a) + sqr(b)))) return 0
-        if ((max(a, c) <= b) && (sqr(b) < (sqr(a) + sqr(c)))) return 0
-        if ((max(c, b) <= a) && (sqr(a) < (sqr(c) + sqr(b)))) return 0
-        if ((max(a, b) <= c) && (sqr(c) > (sqr(a) + sqr(b)))) return 2
-        if ((max(a, c) <= b) && (sqr(b) > (sqr(a) + sqr(c)))) return 2
-        if ((max(c, b) <= a) && (sqr(a) > (sqr(c) + sqr(b)))) return 2
+        return when {
+            max(a, b) <= c && sqr(c) == sqr(a) + sqr(b) -> 1
+            max(a, c) <= b && sqr(b) == sqr(a) + sqr(c) -> 1
+            max(b, c) <= a && sqr(a) == sqr(b) + sqr(c) -> 1
+            max(a, b) <= c && sqr(c) < sqr(a) + sqr(b) -> 0
+            max(a, c) <= b && sqr(b) < sqr(a) + sqr(c) -> 0
+            max(c, b) <= a && sqr(a) < sqr(c) + sqr(b) -> 0
+            max(a, b) <= c && sqr(c) > sqr(a) + sqr(b) -> 2
+            max(a, c) <= b && sqr(b) > sqr(a) + sqr(c) -> 2
+            max(c, b) <= a && sqr(a) > sqr(c) + sqr(b) -> 2
+            else -> -1
+        }
     }
     return -1
 }
