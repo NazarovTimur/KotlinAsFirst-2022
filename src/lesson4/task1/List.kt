@@ -374,12 +374,12 @@ fun russian(n: Int): String {
                     rez += "две тысячи "
                     num -= A[k] * 1000
                 }
-                else if (A[k] % 100 % 10 in 3..4) {
-                    rez += B[k] + " тысячи "
-                    num -= A[k] * 1000
-                }
                 else if ((A[k] % 100 % 10 in 5..9) || (A[k] in 11..90) || (A[k] in 100..900)) {
                     rez += B[k] + " тысяч "
+                    num -= A[k] * 1000
+                }
+                else if (A[k] % 100 % 10 in 3..4) {
+                    rez += B[k] + " тысячи "
                     num -= A[k] * 1000
                 }
                 else if (A[k] % 100 % 10 == 1) {
