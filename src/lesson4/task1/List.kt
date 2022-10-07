@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 // Урок 4: списки
@@ -120,14 +121,22 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = TODO()
+fun abs(v: List<Double>): Double {
+    var rezult = 0.0
+    var count = 0.0
+    for (i in 0 until v.size) {
+        count += v[i] * v[i]
+    }
+    rezult = sqrt(count)
+    return rezult
+}
 
 /**
  * Простая (2 балла)
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = TODO()
+fun mean(list: List<Double>): Double = if (list.isNotEmpty()) list.sum() / list.size else 0.0
 
 /**
  * Средняя (3 балла)
@@ -137,7 +146,13 @@ fun mean(list: List<Double>): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): MutableList<Double> {
+    val k = mean(list)
+    for (i in 0 until list.size) {
+        list[i] -= k
+    }
+    return list
+}
 
 /**
  * Средняя (3 балла)
@@ -146,7 +161,13 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int = TODO()
+fun times(a: List<Int>, b: List<Int>): Int {
+    var count = 0
+    for (i in 0 until a.size) {
+        count += a[i] * b[i]
+    }
+    return count
+}
 
 /**
  * Средняя (3 балла)
@@ -156,7 +177,14 @@ fun times(a: List<Int>, b: List<Int>): Int = TODO()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int): Int = TODO()
+fun polynom(p: List<Int>, x: Int): Int {
+    var count = 0
+    val xp = x.toDouble()
+    for (i in 0 until p.size) {
+        count += p[i] * xp.pow(i).toInt()
+    }
+    return count
+}
 
 /**
  * Средняя (3 балла)
@@ -168,7 +196,15 @@ fun polynom(p: List<Int>, x: Int): Int = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
+fun accumulate(list: MutableList<Int>): MutableList<Int> {
+    var count = 0
+    for (i in list.indices) {
+        if (i != 0) {
+            list[i] += list[i - 1]
+        }
+    }
+    return list
+}
 
 /**
  * Средняя (3 балла)
@@ -177,7 +213,19 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    var number = n
+    var a = mutableListOf<Int>()
+    for (i in 2..n) if (number % i == 0) {
+        number /= i
+        a.add(i)
+        if (number % i == 0) {
+            number /= i
+            a.add(i)
+        }
+    }
+    return a
+}
 
 /**
  * Сложная (4 балла)
@@ -186,7 +234,7 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя (3 балла)
@@ -195,7 +243,15 @@ fun factorizeToString(n: Int): String = TODO()
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    var a = mutableListOf<Int>()
+    var num = n
+    while (num > 0) {
+        a.add(num % base)
+        num /= base
+    }
+    return a.asReversed()
+}
 
 /**
  * Сложная (4 балла)
@@ -208,7 +264,37 @@ fun convert(n: Int, base: Int): List<Int> = TODO()
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String {
+    var A = mutableListOf<Int>(10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35)
+    var B = mutableListOf<String>("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
+    var j = ""
+    var num = n
+    var k = 0
+    if (num < base && num < 10) return n.toString()
+    else {
+        while (num > 0) {
+            if (num % base >= 10) {
+                k = 25
+                while (A[k] > num % base) {
+                    k--
+                }
+                j += B[k]
+                num -= A[k]
+            }
+            else {
+                if (B[k] in j && num % base == 0) {
+                    j += ""
+                    num /= base
+                }
+                else {
+                    j += (num % base).toString()
+                    num /= base
+                }
+            }
+        }
+    }
+    return j.reversed()
+}
 
 /**
  * Средняя (3 балла)
@@ -241,7 +327,22 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    var Rus = mutableListOf<Int>(1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000)
+    var Rim = mutableListOf<String>("I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M")
+    var num = n
+    var rez = ""
+    var i = 0
+    while (num > 0) {
+        i = 12
+        while (Rus[i] > num) {
+            i--
+        }
+        rez += Rim[i]
+        num -= Rus[i]
+    }
+    return rez
+}
 
 /**
  * Очень сложная (7 баллов)
@@ -250,4 +351,57 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    var A = mutableListOf<Int>(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900)
+    var B = mutableListOf<String>("один","два","три","четыре","пять","шесть","семь","восемь","девять","десять","одиннадцать","двенадцать",
+        "тринадцать","четырнадцать","пятнадцать","шестнадцать","семнадцать","восемнадцать","девятнадцать","двадцать","тридцать","сорок","пятдесять",
+        "шестьдесят","семьдесят","восемьдесят","девяносто","сто","двести","триста","четыреста","пятьсот","шестьсот","семьсот","восемьсот","девятьсот")
+    var num = n
+    var k = 0
+    var rez = ""
+    while (num > 0) {
+        k = 35
+        if (num >= 1000) {
+            while (A[k] * 1000 > num) {
+                k--
+            }
+            if (num - A[k] * 1000 > 1000) {
+                rez += B[k] + " "
+                num -= A[k] * 1000
+            }
+            else {
+                if (A[k] % 100 % 10 == 2) {
+                    rez += "две тысячи "
+                    num -= A[k] * 1000
+                }
+                else if (A[k] % 100 % 10 in 3..4) {
+                    rez += B[k] + " тысячи "
+                    num -= A[k] * 1000
+                }
+                else if ((A[k] % 100 % 10 in 5..9) || (A[k] in 100..900)) {
+                    rez += B[k] + " тысяч "
+                    num -= A[k] * 1000
+                }
+                else if (A[k] % 100 % 10 == 1) {
+                    rez += "одна тысяча "
+                    num -= A[k] * 1000
+                }
+                else continue
+            }
+        }
+        else {
+            k = 35
+            while (A[k] > num) {
+                k--
+            }
+            if (num - A[k] > 0) {
+                rez += B[k] + " "
+                num -= A[k]
+            } else {
+                rez += B[k] + ""
+                num -= A[k]
+            }
+        }
+    }
+    return rez.trim()
+}
