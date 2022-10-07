@@ -370,7 +370,7 @@ fun russian(n: Int): String {
                 num -= A[k] * 1000
             }
             else {
-                if (A[k] % 100 % 10 == 2) {
+                if (A[k] % 100 % 10 == 2 && A[k] !in 10..900) {
                     rez += "две тысячи "
                     num -= A[k] * 1000
                 }
