@@ -307,20 +307,20 @@ fun fibSequenceDigit(n: Int): Int {
     var num1 = 1
     var num2 = 1
     var p = 0
-    var k = 0
+    var i = 3
     if (n == 1) return 1
     if (n == 2) return 1
-    for (i in 3..1000000) {
+    while (true) {
         num2 = num0 + num1
         p = digitNumber(num2)
         count += p
         num0 = num1
         num1 = num2
+        i += 1
         if (n in count - p..count) break
     }
-    k = num2
     for (i in 1..count - n) {
-        k = k / 10
+        num2 = num2 / 10
     }
-    return k % 10
+    return num2 % 10
 }
