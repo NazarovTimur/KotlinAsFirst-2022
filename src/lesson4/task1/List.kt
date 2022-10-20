@@ -215,16 +215,16 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> {
  */
 fun factorize(n: Int): List<Int> {
     var number = n
+    var count = 2
     var a = mutableListOf<Int>()
-    for (i in 2..n) if (number % i == 0) {
-        number /= i
-        a.add(i)
-        if (number % i == 0) {
-            number /= i
-            a.add(i)
+    while (number != 1) {
+        if (number % count == 0) {
+            number /= count
+            a.add(count)
         }
+        else count += 1
     }
-    return a
+    return a.sorted()
 }
 
 /**
@@ -328,18 +328,18 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    var Rus = mutableListOf<Int>(1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000)
-    var Rim = mutableListOf<String>("I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M")
+    val rus = listOf<Int>(1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000)
+    val rim = listOf<String>("I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M")
     var num = n
-    var rez = ""
+    var rez = buildString {}
     var i = 0
     while (num > 0) {
         i = 12
-        while (Rus[i] > num) {
+        while (rus[i] > num) {
             i--
         }
-        rez += Rim[i]
-        num -= Rus[i]
+        rez += rim[i]
+        num -= rus[i]
     }
     return rez
 }
@@ -352,8 +352,8 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    var A = mutableListOf<Int>(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900)
-    var B = mutableListOf<String>("один","два","три","четыре","пять","шесть","семь","восемь","девять","десять","одиннадцать","двенадцать",
+    val A = listOf<Int>(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900)
+    val B = listOf<String>("один","два","три","четыре","пять","шесть","семь","восемь","девять","десять","одиннадцать","двенадцать",
         "тринадцать","четырнадцать","пятнадцать","шестнадцать","семнадцать","восемнадцать","девятнадцать","двадцать","тридцать","сорок","пятьдесят",
         "шестьдесят","семьдесят","восемьдесят","девяносто","сто","двести","триста","четыреста","пятьсот","шестьсот","семьсот","восемьсот","девятьсот")
     var num = n
