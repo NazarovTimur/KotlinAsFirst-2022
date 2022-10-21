@@ -246,6 +246,7 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*
 fun convert(n: Int, base: Int): List<Int> {
     var a = mutableListOf<Int>()
     var num = n
+    if (n == 0) return listOf(0)
     while (num > 0) {
         a.add(num % base)
         num /= base
@@ -270,6 +271,7 @@ fun convertToString(n: Int, base: Int): String {
     var j = ""
     var num = n
     var k = 0
+    var rig = 0
     if (num < base && num < 10) return n.toString()
     else {
         while (num > 0) {
@@ -280,11 +282,21 @@ fun convertToString(n: Int, base: Int): String {
                 }
                 j += B[k]
                 num -= A[k]
+                rig = 1
             }
             else {
-                if (B[k] in j && num % base == 0) {
-                    j += ""
-                    num /= base
+                if (rig == 1) {
+                    if (B[k] in j && num % base == 0) {
+                        j += ""
+                        num /= base
+                        rig = 0
+                    }
+                }
+                else if (num % base == 0) {
+                    if (rig == 0) {
+                        j += "0"
+                        num /= base
+                    }
                 }
                 else {
                     j += (num % base).toString()
