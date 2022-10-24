@@ -209,7 +209,7 @@ fun factorize(n: Int): List<Int> {
         }
         else count += 1
     }
-    return a.sorted()
+    return a
 }
 
 /**
