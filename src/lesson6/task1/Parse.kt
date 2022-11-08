@@ -1,6 +1,10 @@
+
 @file:Suppress("UNUSED_PARAMETER", "ConvertCallChainIntoSequence")
 
 package lesson6.task1
+
+import junit.framework.AssertionFailedError
+import java.util.*
 
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
@@ -74,7 +78,28 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val A = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
+    val B = listOf<Int>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    val date = str.split(" ")
+    var mounth = 0
+    var year = 0
+    val day = date[0].toInt()
+    if ((date.size == 3 && date[1] in A)) {
+        for (k in 0..11) {
+            if (A[k] == date[1]) {
+                mounth = B[k]
+                break
+            }
+        }
+        if ((date[0].toInt() <= 31 && (mounth == 1 || mounth == 3 || mounth == 5 || mounth == 7 || mounth == 8 || mounth == 10 || mounth == 12)) || (date[0].toInt() <= 30 && (mounth == 4 || mounth == 6 || mounth == 9 || mounth == 11)) || (date[0].toInt() <= 28 && mounth == 2)) {
+            year = date[2].toInt()
+        }
+        else return ""
+        return String.format("%02d.%02d.%02d", day, mounth, year)
+    }
+    else return ""
+}
 
 /**
  * Средняя (4 балла)
@@ -86,7 +111,25 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val A = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
+    val B = listOf<Int>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    val date = digital.split(".")
+    var mounth = ""
+    val day = date[0]
+    val year = date[2]
+    if (date[1] in A) {
+        for (k in 0..11) {
+            if (B[k] == date[1].toInt()) {
+                mounth = A[k]
+                break
+            }
+            else continue
+        }
+        return String.format("%02d %02d %02d", day, mounth, year)
+    }
+    else return ""
+}
 
 /**
  * Средняя (4 балла)
