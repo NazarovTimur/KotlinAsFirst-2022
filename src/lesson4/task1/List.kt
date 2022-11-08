@@ -253,7 +253,7 @@ fun convert(n: Int, base: Int): List<Int> {
 fun convertToString(n: Int, base: Int): String {
     val A = mutableListOf<Int>(10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35)
     val B = mutableListOf<String>("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
-    var j = ""
+    var j = StringBuilder()
     var num = n
     var k = 0
     var rig = 0
@@ -265,32 +265,32 @@ fun convertToString(n: Int, base: Int): String {
                 while (A[k] > num % base) {
                     k--
                 }
-                j += B[k]
+                j.append(B[k])
                 num -= A[k]
                 rig = 1
             }
             else {
                 if (rig == 1) {
                     if (B[k] in j && num % base == 0) {
-                        j += ""
+                        j.append("")
                         num /= base
                         rig = 0
                     }
                 }
                 else if (num % base == 0) {
                     if (rig == 0) {
-                        j += "0"
+                        j.append("0")
                         num /= base
                     }
                 }
                 else {
-                    j += (num % base).toString()
+                    j.append((num % base).toString())
                     num /= base
                 }
             }
         }
     }
-    return j.reversed()
+    return j.toString().reversed()
 }
 
 /**
@@ -328,17 +328,17 @@ fun roman(n: Int): String {
     val rus = listOf<Int>(1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000)
     val rim = listOf<String>("I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M")
     var num = n
-    var rez = buildString {}
+    val rez = StringBuilder()
     var i = 0
     while (num > 0) {
         i = 12
         while (rus[i] > num) {
             i--
         }
-        rez += rim[i]
+        rez.append(rim[i])
         num -= rus[i]
     }
-    return rez
+    return rez.toString()
 }
 
 /**
@@ -355,7 +355,7 @@ fun russian(n: Int): String {
         "шестьдесят","семьдесят","восемьдесят","девяносто","сто","двести","триста","четыреста","пятьсот","шестьсот","семьсот","восемьсот","девятьсот")
     var num = n
     var k = 0
-    var rez = ""
+    val rez = StringBuilder()
     while (num > 0) {
         k = 35
         if (num >= 1000) {
@@ -363,24 +363,24 @@ fun russian(n: Int): String {
                 k--
             }
             if (num - A[k] * 1000 > 1000) {
-                rez += B[k] + " "
+                rez.append(B[k] + " ")
                 num -= A[k] * 1000
             }
             else {
                 if (A[k] % 100 % 10 == 2 && A[k] !in 10..900) {
-                    rez += "две тысячи "
+                    rez.append("две тысячи ")
                     num -= A[k] * 1000
                 }
                 else if ((A[k] % 100 % 10 in 5..9) || (A[k] in 11..90) || (A[k] in 100..900)) {
-                    rez += B[k] + " тысяч "
+                    rez.append(B[k] + " тысяч ")
                     num -= A[k] * 1000
                 }
                 else if (A[k] % 100 % 10 in 3..4) {
-                    rez += B[k] + " тысячи "
+                    rez.append(B[k] + " тысячи ")
                     num -= A[k] * 1000
                 }
                 else if (A[k] % 100 % 10 == 1) {
-                    rez += "одна тысяча "
+                    rez.append("одна тысяча ")
                     num -= A[k] * 1000
                 }
                 else continue
@@ -392,13 +392,13 @@ fun russian(n: Int): String {
                 k--
             }
             if (num - A[k] > 0) {
-                rez += B[k] + " "
+                rez.append(B[k] + " ")
                 num -= A[k]
             } else {
-                rez += B[k] + ""
+                rez.append(B[k] + "")
                 num -= A[k]
             }
         }
     }
-    return rez.trim()
+    return rez.toString().trim()
 }
