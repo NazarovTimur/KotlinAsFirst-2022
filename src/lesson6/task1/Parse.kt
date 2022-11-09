@@ -96,7 +96,7 @@ fun dateStrToDigit(str: String): String {
             year = date[2].toInt()
         }
         else return ""
-        return String.format("%02d.%02d.%02d", day, mounth, year)
+        return String.format("%02d.%02d.%d", day, mounth, year)
     }
     else return ""
 }
