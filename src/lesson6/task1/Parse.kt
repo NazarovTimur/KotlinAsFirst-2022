@@ -84,7 +84,7 @@ fun dateStrToDigit(str: String): String {
     val date = str.split(" ")
     var mounth = 0
     var year = 0
-    val day = date[0].toInt()
+    var day = 0
     if ((date.size == 3 && date[1] in A)) {
         for (k in 0..11) {
             if (A[k] == date[1]) {
@@ -92,8 +92,9 @@ fun dateStrToDigit(str: String): String {
                 break
             }
         }
-        if ((date[0].toInt() <= 31 && (mounth == 1 || mounth == 3 || mounth == 5 || mounth == 7 || mounth == 8 || mounth == 10 || mounth == 12)) || (date[0].toInt() <= 30 && (mounth == 4 || mounth == 6 || mounth == 9 || mounth == 11)) || (date[0].toInt() <= 28 && mounth == 2)) {
-            year = date[2].toInt()
+        year = date[2].toInt()
+        if ((date[0].toInt() <= 31 && (mounth == 1 || mounth == 3 || mounth == 5 || mounth == 7 || mounth == 8 || mounth == 10 || mounth == 12)) || (date[0].toInt() <= 30 && (mounth == 4 || mounth == 6 || mounth == 9 || mounth == 11)) || (date[0].toInt() <= 29 && year % 4 == 0 && mounth == 2) || (date[0].toInt() <= 28 && year % 4 != 0 && mounth == 2)) {
+            day = date[0].toInt()
         }
         else return ""
         return String.format("%02d.%02d.%d", day, mounth, year)
