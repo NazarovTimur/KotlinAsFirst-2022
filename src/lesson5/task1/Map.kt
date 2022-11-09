@@ -120,22 +120,7 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
-    var rez = true
-    for (c in a) {
-        val num1 = c.key
-        val num2 = c.value
-        for (k in b) {
-            val num3 = k.key
-            val num4 = k.value
-            if (num1 == num3 && num2 == num4) {
-                rez = true
-                break
-            } else rez = false
-        }
-    }
-    return rez
-}
+fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = TODO()
 
 /**
  * Простая (2 балла)
@@ -162,15 +147,7 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
  * В выходном списке не должно быть повторяющихся элементов,
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
-    var rez = mutableListOf<String>()
-    for (i in 0 until a.size) {
-        for (j in 0 until b.size) {
-            if (a[i] == b[j]) rez.add(a[i])
-        }
-    }
-    return rez
-}
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
 
 /**
  * Средняя (3 балла)
@@ -254,7 +231,6 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
                 rez.put(price.first, Pair(item, price.second))
                 p = item
             }
-            else p == null
         }
     }
     return p
@@ -295,20 +271,7 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> {
-    val rez = mutableMapOf<String, Int>()
-    var num = 1
-    for (i in 0 until list.size){
-        if (list[i] !in rez) rez.put(list[i], 1)
-        else rez[list[i]] = rez.getValue(list[i]) + 1
-    }
-    for (i in rez) {
-        if (i.value < num) rez.remove(i.key)
-        num = i.value
-    }
-    if (rez.containsValue(1)) rez.clear()
-    return rez
-}
+fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
 
 /**
  * Средняя (3 балла)
