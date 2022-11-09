@@ -121,20 +121,32 @@ fun dateDigitToStr(digital: String): String {
     val A = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
     val B = listOf<Int>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
     val date = digital.split(".")
-    var mounth = ""
-    val day = date[0]
-    val year = date[2]
-    if (date[1] in A) {
+    val mounth = StringBuilder()
+    var year = 0
+    val check = date[0]
+    var day = 0
+    if (check.matches(Regex("""([0-9]{2})""")) && date.size == 3 && date[1].toInt() in B) {
         for (k in 0..11) {
             if (B[k] == date[1].toInt()) {
-                mounth = A[k]
+                mounth.append(A[k])
                 break
             }
-            else continue
         }
-        return String.format("%02d %02d %02d", day, mounth, year)
+        year = date[2].toInt()
+        if ((date[0].toInt() <= 31 && (date[1].toInt() == 1 || date[1].toInt() == 3 || date[1].toInt() == 5 || date[1].toInt() == 7 || date[1].toInt() == 8 || date[1].toInt() == 10 || date[1].toInt() == 12)) || (date[0].toInt() <= 30 && (date[1].toInt() == 4 || date[1].toInt() == 6 || date[1].toInt() == 9 || date[1].toInt() == 11)) || (date[0].toInt() <= 28 && year % 4 != 0 && date[1].toInt() == 2)) {
+            day = date[0].toInt()
+        }
+        else if (date[0].toInt() <= 29 && year % 4 == 0 && date[1].toInt() == 2) {
+            if (year % 400 == 0) day = date[0].toInt()
+            else if (year % 100 == 0) return ""
+            else day = date[0].toInt()
+        }
+        else return ""
+        return String.format("%d %s %d", day, mounth, year)
     }
-    else return ""
+    else {
+        return ""
+    }
 }
 
 /**
