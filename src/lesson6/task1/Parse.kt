@@ -5,6 +5,7 @@ package lesson6.task1
 
 import junit.framework.AssertionFailedError
 import java.util.*
+import kotlin.math.max
 
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
@@ -175,7 +176,15 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    var maxJump = -1
+    if (!(jumps.contains(Regex("""[^- %[0-9]{1,4}]""")))) {
+        for (i in Regex("""([0-9]*)""").findAll(jumps)) {
+            maxJump = max(i.value.toInt(), maxJump)
+        }
+    }
+    return maxJump
+}
 
 /**
  * Сложная (6 баллов)
@@ -188,7 +197,19 @@ fun bestLongJump(jumps: String): Int = TODO()
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    val list = mutableListOf<String>()
+    var rez = -1
+    if (!(jumps.contains(Regex("""[^- %+[0-9]{1,4}]""")))) {
+        for (i in Regex("""[0-9]* \+""").findAll(jumps)) {
+            list.add(i.value.substring(0, i.value.length-2))
+        }
+        for (k in 0 until list.size) {
+            rez = max(list[k].toInt(), rez)
+        }
+    }
+    return rez
+}
 
 /**
  * Сложная (6 баллов)
