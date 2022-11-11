@@ -124,9 +124,8 @@ fun dateDigitToStr(digital: String): String {
     val date = digital.split(".")
     val mounth = StringBuilder()
     var year = 0
-    val check = date[0]
     var day = 0
-    if (check.matches(Regex("""([0-9]{2})""")) && date.size == 3 && date[1].toInt() in B) {
+    if (date[0].matches(Regex("""([0-9]{2})""")) && date.size == 3 && date[1].toInt() in B) {
         for (k in 0..11) {
             if (B[k] == date[1].toInt()) {
                 mounth.append(A[k])
@@ -139,7 +138,7 @@ fun dateDigitToStr(digital: String): String {
         }
         else if (date[0].toInt() <= 29 && year % 4 == 0 && date[1].toInt() == 2) {
             if (year % 400 == 0) day = date[0].toInt()
-            else if (year % 100 == 0) return ""
+            else if (year % 100 == 0) day = date[0].toInt()
             else day = date[0].toInt()
         }
         else return ""
@@ -176,15 +175,7 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int {
-    var maxJump = -1
-    if (!(jumps.contains(Regex("""[^- %[0-9]{1,4}]""")))) {
-        for (i in Regex("""([0-9]*)""").findAll(jumps)) {
-            maxJump = max(i.value.toInt(), maxJump)
-        }
-    }
-    return maxJump
-}
+fun bestLongJump(jumps: String): Int = TODO()
 
 /**
  * Сложная (6 баллов)
@@ -220,7 +211,7 @@ fun bestHighJump(jumps: String): Int {
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = 0
+fun plusMinus(expression: String): Int = TODO()
 
 /**
  * Сложная (6 баллов)
@@ -244,7 +235,17 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    var rez = ""
+    var maximum = 0.0
+    for (i in Regex("""[А-Я][а-я]+ [0-9]*""").findAll(description)) {
+        if (maximum < i.value.split(" ")[1].toDouble()) {
+            rez = i.value.split(" ")[0]
+            maximum = i.value.split(" ")[1].toDouble()
+        }
+    }
+    return rez
+}
 
 /**
  * Сложная (6 баллов)
