@@ -209,11 +209,12 @@ fun firstDuplicateIndex(str: String): Int = TODO()
 fun mostExpensive(description: String): String {
     var rez = ""
     var maximum = -1.0
-    for (i in 0 until description.split("; ").size) {
-        println(i)
-        if (maximum < description.split("; ")[i].split(" ")[1].toDouble()) {
-            rez = description.split("; ")[i].split(" ")[0]
-            maximum = description.split("; ")[i].split(" ")[1].toDouble()
+    if (description.isNotEmpty()) {
+        for (i in 0 until description.split("; ").size) {
+            if (maximum < description.split("; ")[i].split(" ")[1].toDouble()) {
+                rez = description.split("; ")[i].split(" ")[0]
+                maximum = description.split("; ")[i].split(" ")[1].toDouble()
+            }
         }
     }
     return rez
