@@ -104,7 +104,7 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
     for (exam in grades) {
         val student = exam.key
         val stat = exam.value
-        if (!(map.containsKey(stat))) map.put(stat, mutableListOf(student))
+        if (stat !in map) map[stat] = mutableListOf(student)
         else map.getValue(stat).add(student)
     }
     return map
@@ -170,9 +170,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
     val rez = mapA.toMutableMap()
     for (i in mapB) {
         if (i.key !in rez) rez[i.key] = i.value
-        else {
-            if (i.value != rez[i.key]) rez[i.key] = rez[i.key] + ", " + i.value
-        }
+        else if (i.value != rez[i.key]) rez[i.key] = rez[i.key] + ", " + i.value
     }
     return rez
 }
