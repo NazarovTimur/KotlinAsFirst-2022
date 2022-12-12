@@ -93,6 +93,7 @@ fun dateStrToDigit(str: String): String {
             val k = mounths.indexOf(date[1])
             mounth = mounthsNumber[k]
         }
+        else return ""
         year = date[2].toInt()
         if (date[0].toInt() in 1..daysInMonth(mounth, year)) day = date[0].toInt()
         else return ""
