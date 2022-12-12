@@ -331,7 +331,7 @@ fun roman(n: Int): String {
     val rez = StringBuilder()
     var i = 0
     while (num > 0) {
-        i = 12
+        i = rus.size - 1
         while (rus[i] > num) {
             i--
         }

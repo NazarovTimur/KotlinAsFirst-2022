@@ -3,6 +3,7 @@
 package lesson7.task1
 
 import java.io.File
+import java.lang.Integer.max
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -155,7 +156,44 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    TODO()
+    val rez = File(outputName).bufferedWriter()
+    var maxLength = 0
+    for (p in File(inputName).readLines()) {
+        maxLength = max(p.trim().length, maxLength)
+    }
+    for (l in File(inputName).readLines()) {
+        val line = l.trim()
+        if (line.length == maxLength) rez.write("${line}\n")
+        else if (line.isEmpty()) {
+            rez.newLine()
+            continue
+        }
+        else {
+            var space = maxLength
+            for (word in line.split(Regex("""\s+"""))) {
+                space -= word.length
+            }
+            val list = line.split(Regex("""\s+""")).toMutableList()
+            if (list.size == 1) {
+                rez.write(list[0])
+                rez.newLine()
+                continue
+            }
+            var i = 0
+            while (space > 0) {
+                if (space == 0) break
+                list[i] += " "
+                i = (i + 1) % (list.size - 1)
+                space--
+            }
+            for (k in list.indices) {
+                rez.write(list[k])
+            }
+            rez.newLine()
+            space = 0
+        }
+    }
+    rez.close()
 }
 
 /**

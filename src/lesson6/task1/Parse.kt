@@ -81,16 +81,16 @@ fun main() {
  * входными данными.
  */
 fun dateStrToDigit(str: String): String {
-    val A = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
+    val mounths = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
         "сентября", "октября", "ноября", "декабря")
     val B = listOf<Int>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
     val date = str.split(" ")
     var mounth = 0
     var year = 0
     var day = 0
-    if ((date.size == 3 && date[1] in A)) {
+    if ((date.size == 3 && date[1] in mounths)) {
         for (k in 0..11) {
-            if (A[k] == date[1]) {
+            if (mounths[k] == date[1]) {
                 mounth = B.indexOf(date[1].toInt())
                 break
             }
@@ -205,10 +205,11 @@ fun mostExpensive(description: String): String {
     var rez = ""
     var maximum = -1.0
     if (description.isNotEmpty()) {
-        for (i in 0 until description.split("; ").size) {
-            if (maximum < description.split("; ")[i].split(" ")[1].toDouble()) {
-                rez = description.split("; ")[i].split(" ")[0]
-                maximum = description.split("; ")[i].split(" ")[1].toDouble()
+        val spl = description.split("; ")
+        for (i in 0 until spl.size) {
+            if (maximum < spl[i].split(" ")[1].toDouble()) {
+                rez = spl[i].split(" ")[0]
+                maximum = spl[i].split(" ")[1].toDouble()
             }
         }
     }
