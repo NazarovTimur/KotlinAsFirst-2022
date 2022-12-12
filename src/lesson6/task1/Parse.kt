@@ -83,24 +83,22 @@ fun main() {
 fun dateStrToDigit(str: String): String {
     val mounths = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
         "сентября", "октября", "ноября", "декабря")
-    val B = listOf<Int>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    val mounthsNumber = listOf<Int>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
     val date = str.split(" ")
     var mounth = 0
     var year = 0
     var day = 0
-    if ((date.size == 3 && date[1] in mounths)) {
-        for (k in 0..11) {
-            if (mounths[k] == date[1]) {
-                mounth = B.indexOf(date[1].toInt())
-                break
-            }
+    if (date.size == 3) {
+        if (date[1] in mounths) {
+            val k = mounths.indexOf(date[1])
+            mounth = mounthsNumber[k]
         }
         year = date[2].toInt()
-        if (date[0].toInt() in 1.. daysInMonth(mounth, year)) day = date[0].toInt()
+        if (date[0].toInt() in 1..daysInMonth(mounth, year)) day = date[0].toInt()
         else return ""
         return String.format("%02d.%02d.%d", day, mounth, year)
     }
-    else return ""
+    return ""
 }
 
 /**
