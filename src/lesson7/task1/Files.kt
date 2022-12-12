@@ -181,7 +181,6 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             }
             var i = 0
             while (space > 0) {
-                if (space == 0) break
                 list[i] += " "
                 i = (i + 1) % (list.size - 1)
                 space--
