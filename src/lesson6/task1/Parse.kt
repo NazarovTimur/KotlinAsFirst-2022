@@ -204,11 +204,11 @@ fun mostExpensive(description: String): String {
     var rez = ""
     var maximum = -1.0
     if (description.isNotEmpty()) {
-        val spl = description.split("; ")
-        for (i in 0 until spl.size) {
-            if (maximum < spl[i].split(" ")[1].toDouble()) {
-                rez = spl[i].split(" ")[0]
-                maximum = spl[i].split(" ")[1].toDouble()
+        for (i in 0 until description.split("; ").size) {
+            val spl = description.split("; ")[i].split(" ")
+            if (maximum < spl[1].toDouble()) {
+                rez = spl[0]
+                maximum = spl[1].toDouble()
             }
         }
     }
