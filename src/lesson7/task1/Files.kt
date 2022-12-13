@@ -139,10 +139,7 @@ fun centerFile(inputName: String, outputName: String) {
             rez.newLine()
         }
         else {
-            var space = maxLength + 1
-            for (word in line.split(Regex("""\s+"""))) {
-                space -= word.length + 1
-            }
+            val space = maxLength - line.length
             for (i in 1..space / 2) {
                 rez.write(" ")
             }
