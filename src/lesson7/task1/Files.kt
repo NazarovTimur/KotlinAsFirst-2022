@@ -125,7 +125,32 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    val rez = File(outputName).bufferedWriter()
+    var maxLength = 0
+    for (p in File(inputName).readLines()) {
+        maxLength = max(p.trim().length, maxLength)
+    }
+    for (l in File(inputName).readLines()) {
+        val line = l.trim()
+        if (line.length == maxLength) rez.write("${line}\n")
+        else if (line.isEmpty()) {
+            for (n in 1..maxLength / 2)
+                rez.write(" ")
+            rez.newLine()
+        }
+        else {
+            var space = maxLength + 1
+            for (word in line.split(Regex("""\s+"""))) {
+                space -= word.length + 1
+            }
+            for (i in 1..space / 2) {
+                rez.write(" ")
+            }
+            rez.write(line)
+            rez.newLine()
+        }
+    }
+    rez.close()
 }
 
 /**
@@ -189,7 +214,6 @@ fun alignFileByWidth(inputName: String, outputName: String) {
                 rez.write(list[k])
             }
             rez.newLine()
-            space = 0
         }
     }
     rez.close()
@@ -281,19 +305,7 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
-    val rez = mutableListOf<String>()
-    var maxsize = 0
-    for (line in File(inputName).readLines()) {
-        if (line.length == line.lowercase().toSet().size) {
-            if (maxsize < line.length) {
-                maxsize = line.length
-                rez.clear()
-            }
-            else if (maxsize > line.length) continue
-            rez.add(line)
-        }
-    }
-    File(outputName).writeText(rez.joinToString(separator = ", "))
+    TODO()
 }
 
 /**
